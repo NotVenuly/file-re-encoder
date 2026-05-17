@@ -1,14 +1,10 @@
 #include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
-#include <iterator>
-#include <vector>
+#include "Filereader.h"
 
 using namespace std;
 
 
 
 string TransformFile(string fileContent){
-    
+
 }

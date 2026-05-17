@@ -1,9 +1,8 @@
+#include "filereader.h"
+
 #include <fstream>
 #include <iostream>
 #include <iterator>
-#include <sstream>
-#include <string>
-#include <vector>
 
 
 using namespace std;
