@@ -1,51 +1,51 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
+#include <vector>
 using namespace std;
 
-void Trim(string* address, int index){
+void Trim(string* address){
     int length = (*address).length()-1;
-    if (index != length){
-        for (int i=index; i<length; i++){
-            (*address)[i] = (*address)[i+1];
-        }
-        address->pop_back();
+    cout << "length is: " << length << endl;
+    for (int i=0; i<length; i++){
+        (*address)[i] = (*address)[i+1];
+        cout << (*address) << endl;
+        cout << "i is: " << i << endl;
     }
-    else{
-        address->pop_back();
-    }
+    address->pop_back();
+    address->pop_back();
+    
 }
 
-void OpenFile(){
+
+string OpenFile(){
     string fileAddress;
     
     cout << "Type the address of the file you want to re-encode: ";
     getline(cin, fileAddress);
     if(fileAddress[0] == '"'){
-
-        Trim(&fileAddress, 0);
-        Trim(&fileAddress, fileAddress.length()-1);
+        Trim(&fileAddress);
     }
     ifstream myFile;
     myFile.open(fileAddress);
-    if(myFile.is_open() != 1){
-        cout << "Something went wrong with opening the file" << endl;
-        OpenFile();
-    }
-
+    
     if(myFile.is_open()){
+        stringstream ss;
         string line;
-        int lineNumber = 1;
         while (getline(myFile, line))
         {
-            cout << lineNumber++ << ". " << line << endl;
+            ss << line << endl;
         }
-        
+        string result = ss.str();
+        return result;
     }
+    cout << "Something went wrong with opening the file" << endl;
     myFile.close();
+    return "";
 }
 
 int main(){
-    OpenFile();
+    string file = OpenFile();
     return 0;
 }
