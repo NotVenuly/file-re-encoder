@@ -1,51 +1,44 @@
-#include <iostream>
 #include <fstream>
-#include <string>
+#include <iostream>
+#include <iterator>
 #include <sstream>
+#include <string>
 #include <vector>
+
+
 using namespace std;
 
-void Trim(string* address){
-    int length = (*address).length()-1;
-    cout << "length is: " << length << endl;
-    for (int i=0; i<length; i++){
-        (*address)[i] = (*address)[i+1];
-        cout << (*address) << endl;
-        cout << "i is: " << i << endl;
-    }
-    address->pop_back();
-    address->pop_back();
-    
+void Trim(string *address, size_t startPos, size_t count) {
+  address->erase(startPos, count);
 }
 
+void TrimEdges(string *address) {
+  address->erase(0, 1);
+  address->erase((*address).length() - 1, 1);
+}
 
-string OpenFile(){
-    string fileAddress;
-    
-    cout << "Type the address of the file you want to re-encode: ";
-    getline(cin, fileAddress);
-    if(fileAddress[0] == '"'){
-        Trim(&fileAddress);
-    }
-    ifstream myFile;
-    myFile.open(fileAddress);
-    
-    if(myFile.is_open()){
-        stringstream ss;
-        string line;
-        while (getline(myFile, line))
-        {
-            ss << line << endl;
-        }
-        string result = ss.str();
-        return result;
-    }
-    cout << "Something went wrong with opening the file" << endl;
+string OpenFile() {
+  string fileAddress;
+
+  cout << "Type the address of the file you want to re-encode: ";
+  getline(cin, fileAddress);
+  if (fileAddress[0] == '"' && fileAddress.length() > 2) {
+    TrimEdges(&fileAddress);
+  }
+  ifstream myFile;
+  myFile.open(fileAddress);
+
+  if (myFile.is_open()) {
+    string result((istreambuf_iterator<char>(myFile)),
+                  istreambuf_iterator<char>());
     myFile.close();
-    return "";
+    return result;
+  }
+  cout << "Something went wrong with opening the file" << endl;
+  return "";
 }
 
-int main(){
-    string file = OpenFile();
-    return 0;
+int main() {
+  string file = OpenFile();
+  return 0;
 }
