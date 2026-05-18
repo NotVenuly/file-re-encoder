@@ -1,4 +1,5 @@
-#include "filereader.h"
+#include "Filereader.h"
+#include "Filetransformer.h"
 
 #include <fstream>
 #include <iostream>
@@ -27,6 +28,7 @@ string OpenFile() {
   ifstream myFile;
   myFile.open(fileAddress);
 
+
   if (myFile.is_open()) {
     string result((istreambuf_iterator<char>(myFile)),
                   istreambuf_iterator<char>());
@@ -37,7 +39,3 @@ string OpenFile() {
   return "";
 }
 
-int main() {
-  string file = OpenFile();
-  return 0;
-}
