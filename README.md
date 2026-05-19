@@ -1,7 +1,7 @@
 # A command line tool made in C++  for File re-encoding
 
 
-##instructions
+## instructions
 
 * Copy a path to the text file you want to re-encode with or without quotes.
 
