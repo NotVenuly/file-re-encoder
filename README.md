@@ -17,7 +17,7 @@
 
 * Check your folder to make sure everything worked properly
 
-A correct output is something like {["line-count":2, "lines":"Hello World!", "how are you today?"]}
+A correct output is something like {"line_count":2, "lines":["Hello World!", "how are you today?"]}
 
 ## Development information
 
