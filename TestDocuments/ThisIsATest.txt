@@ -1,4 +1,5 @@
-Hello everybody
-My name is Jacksepticeye
-and welcome back to Five nights at freddy's
-this is a test remark
+You can use this text document,
+to test my re-encoder.
+Just copy the path to this file,
+and copy the path of the folder you want this re-encoded at.
+For example the folder that this file is in.

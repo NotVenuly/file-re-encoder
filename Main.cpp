@@ -1,15 +1,54 @@
 #include "Filereader.h"
 #include "Filetransformer.h"
+#include "filewriter.h"
 
 #include <string> 
 #include <iostream>
 
 using namespace std;
 
+string AskFileName(string jsonFilePath, string jsonFile){
+    string jsonFileName;
+    cout << "Type the name you want for your JSON file: ";
+    getline(cin, jsonFileName);
+    if(jsonFileName != ""){
+        return jsonFileName;
+    }
+    else{
+        cout << "Please do not input an empty string" << endl;
+        return AskFileName(jsonFilePath, jsonFile);
+    }
+}
+
 int main(){
-    string openedFile = OpenFile();
-    cout << "opened file: " << openedFile << std::endl;
-    string jsonFile = TransformFile(openedFile);
-    cout << "JSON file: " << jsonFile << std::endl;
+    bool done = false;
+    while(!done){
+        string jsonFilePath;
+        string jsonFileName;
+
+        string openedFile = OpenFile();
+        if(openedFile == ""){
+            cout << "Please do not input an empty string" << endl;
+            continue;
+        }
+        cout << "opened file: " << openedFile << std::endl;
+        string jsonFile = TransformFile(openedFile);
+        cout << "JSON file: " << jsonFile << std::endl;
+        cout << "Paste the address of the folder you want your JSON file to be saved at: ";
+        getline(cin, jsonFilePath);
+        bool validName = false;
+        while (!validName) {
+            jsonFileName = AskFileName(jsonFilePath, jsonFile);
+            int result = WriteFile(jsonFilePath, jsonFileName, jsonFile);
+            if (result == 1) {
+                validName = true;
+                done = true;
+            } else if (result == 0) {
+                done = true;
+                validName = true;
+            }
+        }
+    }
+
     return 0;
 }
